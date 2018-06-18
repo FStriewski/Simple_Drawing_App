@@ -13,7 +13,7 @@
  let curColor = colors.colorPurple
 
  switchColor = () => {
-    let select = document.getElementById("colorSelect").value 
+     let select = document.getElementById("colorSelect").value
      curColor = colors[select]
  }
 
@@ -51,7 +51,7 @@
              (clickDrag[i] && i) // dot or line? Determined by drag t/f
              ?
              context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
-                 : context.moveTo(clickX[i] - 1, clickY[i])
+                 : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
 
              context.lineTo(clickX[i], clickY[i])
              context.closePath()
@@ -64,18 +64,33 @@
 
      // Draw action start or point (mouse down):
      $('#canvas').mousedown(function (e) {
-         let mouseX = e.pageX - this.offsetLeft;
-         let mouseY = e.pageY - this.offsetTop;
+
+var parentOffset = $(this).offset();
+
+         let mouseX = e.pageX - parent.offsetLeft;
+         let mouseY = e.pageY - parent.offsetTop;
 
          paint = true;
 
-         addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+         let wrapper = 16
+         let top = document.getElementById("navbar").offsetHeight
+         let left = document.getElementById("sidebar").offsetWidth
+
+         addClick(e.pageX - left - wrapper, e.pageY - top - wrapper);
+        // addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+       //  addClick(mouseX, mouseY);
          redraw();
      });
      // Mouse move
      $('#canvas').mousemove(function (e) {
          if (paint) {
-             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+             let wrapper = 16
+             let top = document.getElementById("navbar").offsetHeight
+             let left = document.getElementById("sidebar").offsetWidth
+
+            addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);
+            
+            //addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
              redraw();
          }
      });
