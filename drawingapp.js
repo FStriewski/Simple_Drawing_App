@@ -1,14 +1,26 @@
+ // Globals:
+let colorPurple = "#cb3594";
+let colorGreen = "#659b41";
+let colorYellow = "#ffcf33";
+let colorBrown = "#986928";
+
+let curColor = colorPurple;
+let clickColor = new Array();
+ 
+ 
  drawCanvas = () => {
 
     let canvasDiv = document.getElementById('canvasDiv')
 
-    canvas = document.createElement('canvas')
-    canvas.setAttribute('width', 750);
-    canvas.setAttribute('height', 400);
-    canvas.setAttribute('id', 'canvas');
+    let canvas = document.createElement('canvas')
+    canvas.setAttribute('width', 750)
+    canvas.setAttribute('height', 400)
+    canvas.setAttribute('id', 'canvas')
 
     canvasDiv.appendChild(canvas);
-    if (typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas); }
+    (typeof G_vmlCanvasManager != 'undefined') 
+        ? canvas = G_vmlCanvasManager.initElement(canvas)
+        : null 
 
     context = canvas.getContext("2d");
 
@@ -18,30 +30,30 @@
     let paint;
 
     // Add Click pushes position into array
-    function addClick(x, y, dragging) {
+     addClick = (x, y, dragging) => {
         clickX.push(x);
         clickY.push(y);
         clickDrag.push(dragging);
     }
 
     // Redraw action:
-    function redraw() {
+     redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
         context.strokeStyle = "#df4b26";
         context.lineJoin = "round";
         context.lineWidth = 3;
 
-        for (var i = 0; i < clickX.length; i++) {
+        for (let i = 0; i < clickX.length; i++) {
             context.beginPath();
-            if (clickDrag[i] && i) {
-                context.moveTo(clickX[i - 1], clickY[i - 1]);
-            } else {
-                context.moveTo(clickX[i] - 1, clickY[i]);
-            }
-            context.lineTo(clickX[i], clickY[i]);
-            context.closePath();
-            context.stroke();
+
+            (clickDrag[i] && i) 
+                ? context.moveTo(clickX[i - 1], clickY[i - 1])
+                : context.moveTo(clickX[i] - 1, clickY[i])
+            
+            context.lineTo(clickX[i], clickY[i])
+            context.closePath()
+            context.stroke()
         }
     }
 
@@ -64,11 +76,11 @@
     });
     // Mouse up (stop drawing)
     $('#canvas').mouseup(function (e) {
-        paint = false;
+        paint = false
     });
 
     // Leave event for drawing over the border:
     $('#canvas').mouseleave(function (e) {
-        paint = false;
+        paint = false
     });
 }
