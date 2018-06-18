@@ -25,7 +25,7 @@
      let clickDrag = new Array(); // Array of Bool
      let paint;
 
-     // Add Click pushes position into array
+     // Add a point
      addClick = (x, y, dragging) => {
          clickX.push(x);
          clickY.push(y);
