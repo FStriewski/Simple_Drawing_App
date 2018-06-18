@@ -1,6 +1,4 @@
  // Globals:
-
-
  let clickColor = new Array();
 
  let colors = {
@@ -20,7 +18,6 @@
  drawCanvas = () => {
 
      let canvas = $('#canvas')
-     //let context = canvas.getContext("2d");
      var context = canvas.get(0).getContext("2d");
 
      let clickX = new Array(); // Array of Number
@@ -61,15 +58,8 @@
          }
      }
 
-
      // Draw action start or point (mouse down):
      $('#canvas').mousedown(function (e) {
-
-var parentOffset = $(this).offset();
-
-         let mouseX = e.pageX - parent.offsetLeft;
-         let mouseY = e.pageY - parent.offsetTop;
-
          paint = true;
 
          let wrapper = 16
@@ -77,23 +67,22 @@ var parentOffset = $(this).offset();
          let left = document.getElementById("sidebar").offsetWidth
 
          addClick(e.pageX - left - wrapper, e.pageY - top - wrapper);
-        // addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-       //  addClick(mouseX, mouseY);
          redraw();
      });
+
      // Mouse move
      $('#canvas').mousemove(function (e) {
          if (paint) {
-             let wrapper = 16
-             let top = document.getElementById("navbar").offsetHeight
-             let left = document.getElementById("sidebar").offsetWidth
+            let wrapper = 16
+            let top = document.getElementById("navbar").offsetHeight
+            let left = document.getElementById("sidebar").offsetWidth
 
             addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);
             
-            //addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-             redraw();
+            redraw();
          }
      });
+
      // Mouse up (stop drawing)
      $('#canvas').mouseup(function (e) {
          paint = false
