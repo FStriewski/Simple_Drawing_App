@@ -14,9 +14,9 @@ let clickColor = new Array();
     //let context = canvas.getContext("2d");
      var context = canvas.get(0).getContext("2d");
 
-    let clickX = new Array();
-    let clickY = new Array();
-    let clickDrag = new Array();
+    let clickX = new Array();   // Array of Number
+    let clickY = new Array();   // Array of Number
+    let clickDrag = new Array(); // Array of Bool
     let paint;
 
     // Add Click pushes position into array
@@ -25,22 +25,24 @@ let clickColor = new Array();
         clickY.push(y);
         clickDrag.push(dragging);
         clickColor.push(curColor);
+        console.log(clickX)
+        console.log(clickDrag)
     }
 
     // Redraw action:
      redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
- 
+         context.beginPath();
 
         // context.strokeStyle = "#df4b26";
      //   context.lineJoin = "round";
       //  context.lineWidth = 3;
 
         for (let i = 0; i < clickX.length; i++) {
-            context.beginPath();
+       
 
-            (clickDrag[i] && i) 
-                ? context.moveTo(clickX[i - 1], clickY[i - 1])
+            (clickDrag[i] && i) // dot or line? Determined by drag t/f
+                ? context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
                 : context.moveTo(clickX[i] - 1, clickY[i])
             
             context.lineTo(clickX[i], clickY[i])
@@ -81,9 +83,12 @@ let clickColor = new Array();
     });
 
      $('#clear').mouseup(function () {
-         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-         context.beginPath();
-     }) //
-     //clear = () => {context.clearRect(0, 0, context.canvas.width, context.canvas.height)}
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+    // Force clearing "the cache"    
+        clickX = [] 
+        clickY = [] 
+        clickDrag = [] 
+        context.beginPath();
+     }) 
 }
 
