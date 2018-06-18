@@ -3,8 +3,8 @@
     let canvasDiv = document.getElementById('canvasDiv')
 
     canvas = document.createElement('canvas')
-    canvas.setAttribute('width', 500);
-    canvas.setAttribute('height', 500);
+    canvas.setAttribute('width', 750);
+    canvas.setAttribute('height', 400);
     canvas.setAttribute('id', 'canvas');
 
     canvasDiv.appendChild(canvas);
@@ -30,7 +30,7 @@
 
         context.strokeStyle = "#df4b26";
         context.lineJoin = "round";
-        context.lineWidth = 5;
+        context.lineWidth = 3;
 
         for (var i = 0; i < clickX.length; i++) {
             context.beginPath();
