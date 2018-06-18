@@ -25,17 +25,15 @@ let clickColor = new Array();
         clickY.push(y);
         clickDrag.push(dragging);
         clickColor.push(curColor);
-        console.log(clickX)
-        console.log(clickDrag)
     }
 
     // Redraw action:
      redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-         context.beginPath();
+        context.beginPath();
 
-        // context.strokeStyle = "#df4b26";
-     //   context.lineJoin = "round";
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
       //  context.lineWidth = 3;
 
         for (let i = 0; i < clickX.length; i++) {
