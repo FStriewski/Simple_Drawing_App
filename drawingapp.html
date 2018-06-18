@@ -20,8 +20,6 @@
             margin-left: 40px;
         }
 
-        #canvasDiv {}
-
         #canvas {
             background-color: white;
             border: 1px solid black;
@@ -30,12 +28,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav id="navbar" class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Draw</span>
+        <button id="clear" class="btn btn-danger">Clear</button>
     </nav>
 
-    <div class="container-flex p-3 mb-2 bg-secondary text-white">
-        <div id="canvasDiv" class="row justify-content-center"></div>
+    <div id="wrapper" class="container-flex p-3 mb-2 bg-secondary text-white">
+        <div class="row justify-content-center">
+
+            <div id="sidebar" class="col-3 justify-content-center">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Color</label>
+                    </div>
+                    <select class="custom-select" id="colorSelect" onChange="switchColor()">
+                        <option value="colorPurple" selected>Purple</option>
+                        <option value="colorGreen">Green</option>
+                        <option value="colorYellow">Yellow</option>
+                        <option value="colorBrown">Brown</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-9 justify-content-center">
+                <canvas id="canvas" width="750" height="400"></canvas>
+            </div>
+
+        </div>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 drawCanvas();
