@@ -1,31 +1,50 @@
+ // Globals:
+
+let clickX = new Array();
+let clickY = new Array();
+let clickDrag = new Array();
+let paint;
+let canvasWidth = 750;
+let canvasHeight = 400;
+ 
+// Color vars:
+
+var colorPurple = "#cb3594";
+var colorGreen = "#659b41";
+var colorYellow = "#ffcf33";
+var colorBrown = "#986928";
+
+var curColor = colorPurple;
+var clickColor = new Array();
+ 
+
  drawCanvas = () => {
 
-    let canvasDiv = document.getElementById('canvasDiv')
+    const canvasDiv = document.getElementById('canvasDiv')
 
-    canvas = document.createElement('canvas')
-    canvas.setAttribute('width', 750);
-    canvas.setAttribute('height', 400);
-    canvas.setAttribute('id', 'canvas');
+    const canvas = document.createElement('canvas')
+        canvas.setAttribute('width', canvasWidth)
+        canvas.setAttribute('height', canvasHeight)
+        canvas.setAttribute('id', 'canvas')
 
     canvasDiv.appendChild(canvas);
-    if (typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas); }
+    
+    (typeof G_vmlCanvasManager != 'undefined') 
+        ? canvas = G_vmlCanvasManager.initElement(canvas)
+        : null
 
-    context = canvas.getContext("2d");
-
-    let clickX = new Array();
-    let clickY = new Array();
-    let clickDrag = new Array();
-    let paint;
+    const context = canvas.getContext("2d");
 
     // Add Click pushes position into array
-    function addClick(x, y, dragging) {
+     addClick = (x, y, dragging, curColor) => {
         clickX.push(x);
         clickY.push(y);
         clickDrag.push(dragging);
+        clickColor.push(curColor);
     }
 
     // Redraw action:
-    function redraw() {
+    redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
         context.strokeStyle = "#df4b26";
@@ -34,11 +53,11 @@
 
         for (var i = 0; i < clickX.length; i++) {
             context.beginPath();
-            if (clickDrag[i] && i) {
-                context.moveTo(clickX[i - 1], clickY[i - 1]);
-            } else {
-                context.moveTo(clickX[i] - 1, clickY[i]);
-            }
+
+             (clickDrag[i] && i) 
+                ?  context.moveTo(clickX[i - 1], clickY[i - 1])
+                : context.moveTo(clickX[i] - 1, clickY[i])
+            
             context.lineTo(clickX[i], clickY[i]);
             context.closePath();
             context.stroke();
@@ -47,7 +66,7 @@
 
 
     // Draw action start or point (mouse down):
-    $('#canvas').mousedown(function (e) {
+     $('#canvas').mousedown(e => {
         let mouseX = e.pageX - this.offsetLeft;
         let mouseY = e.pageY - this.offsetTop;
 
@@ -56,19 +75,19 @@
         redraw();
     });
     // Mouse move
-    $('#canvas').mousemove(function (e) {
+    $('#canvas').mousemove( e => {
         if (paint) {
             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
             redraw();
         }
     });
     // Mouse up (stop drawing)
-    $('#canvas').mouseup(function (e) {
+     $('#canvas').mouseup(e => {
         paint = false;
     });
 
     // Leave event for drawing over the border:
-    $('#canvas').mouseleave(function (e) {
+     $('#canvas').mouseleave(e => {
         paint = false;
     });
 }
