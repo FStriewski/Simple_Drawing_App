@@ -10,19 +10,9 @@ let clickColor = new Array();
  
  drawCanvas = () => {
 
-    let canvasDiv = document.getElementById('canvasDiv')
-
-    let canvas = document.createElement('canvas')
-    canvas.setAttribute('width', 750)
-    canvas.setAttribute('height', 400)
-    canvas.setAttribute('id', 'canvas')
-
-    canvasDiv.appendChild(canvas);
-    (typeof G_vmlCanvasManager != 'undefined') 
-        ? canvas = G_vmlCanvasManager.initElement(canvas)
-        : null 
-
-    context = canvas.getContext("2d");
+    let canvas = $('#canvas')
+    //let context = canvas.getContext("2d");
+     var context = canvas.get(0).getContext("2d");
 
     let clickX = new Array();
     let clickY = new Array();
@@ -40,10 +30,11 @@ let clickColor = new Array();
     // Redraw action:
      redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+ 
 
         // context.strokeStyle = "#df4b26";
-        context.lineJoin = "round";
-        context.lineWidth = 3;
+     //   context.lineJoin = "round";
+      //  context.lineWidth = 3;
 
         for (let i = 0; i < clickX.length; i++) {
             context.beginPath();
@@ -54,6 +45,7 @@ let clickColor = new Array();
             
             context.lineTo(clickX[i], clickY[i])
             context.closePath()
+            
             context.strokeStyle = clickColor[i];
             context.stroke()
         }
@@ -66,6 +58,7 @@ let clickColor = new Array();
         let mouseY = e.pageY - this.offsetTop;
 
         paint = true;
+
         addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
         redraw();
     });
@@ -79,6 +72,7 @@ let clickColor = new Array();
     // Mouse up (stop drawing)
     $('#canvas').mouseup(function (e) {
         paint = false
+        redraw();
     });
 
     // Leave event for drawing over the border:
@@ -88,6 +82,7 @@ let clickColor = new Array();
 
      $('#clear').mouseup(function () {
          context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+         context.beginPath();
      }) //
      //clear = () => {context.clearRect(0, 0, context.canvas.width, context.canvas.height)}
 }
