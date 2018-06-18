@@ -1,71 +1,74 @@
-let canvasDiv = document.getElementById('canvasDiv')
+ drawCanvas = () => {
 
-canvas = document.createElement('canvas')
-canvas.setAttribute('width', 500);
-canvas.setAttribute('height', 500);
-canvas.setAttribute('id', 'canvas');
+    let canvasDiv = document.getElementById('canvasDiv')
 
-canvasDiv.appendChild(canvas);
-if (typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas); }
+    canvas = document.createElement('canvas')
+    canvas.setAttribute('width', 500);
+    canvas.setAttribute('height', 500);
+    canvas.setAttribute('id', 'canvas');
 
-context = canvas.getContext("2d");
+    canvasDiv.appendChild(canvas);
+    if (typeof G_vmlCanvasManager != 'undefined') { canvas = G_vmlCanvasManager.initElement(canvas); }
 
-let clickX = new Array();
-let clickY = new Array();
-let clickDrag = new Array();
-let paint;
+    context = canvas.getContext("2d");
 
-// Add Click pushes position into array
-function addClick(x, y, dragging) {
-    clickX.push(x);
-    clickY.push(y);
-    clickDrag.push(dragging);
-}
+    let clickX = new Array();
+    let clickY = new Array();
+    let clickDrag = new Array();
+    let paint;
 
-// Redraw action:
-function redraw() {
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+    // Add Click pushes position into array
+    function addClick(x, y, dragging) {
+        clickX.push(x);
+        clickY.push(y);
+        clickDrag.push(dragging);
+    }
 
-    context.strokeStyle = "#df4b26";
-    context.lineJoin = "round";
-    context.lineWidth = 5;
+    // Redraw action:
+    function redraw() {
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
-    for (var i = 0; i < clickX.length; i++) {
-        context.beginPath();
-        if (clickDrag[i] && i) {
-            context.moveTo(clickX[i - 1], clickY[i - 1]);
-        } else {
-            context.moveTo(clickX[i] - 1, clickY[i]);
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
+        context.lineWidth = 5;
+
+        for (var i = 0; i < clickX.length; i++) {
+            context.beginPath();
+            if (clickDrag[i] && i) {
+                context.moveTo(clickX[i - 1], clickY[i - 1]);
+            } else {
+                context.moveTo(clickX[i] - 1, clickY[i]);
+            }
+            context.lineTo(clickX[i], clickY[i]);
+            context.closePath();
+            context.stroke();
         }
-        context.lineTo(clickX[i], clickY[i]);
-        context.closePath();
-        context.stroke();
     }
-}
 
 
-// Draw action start or point (mouse down):
-$('#canvas').mousedown(function (e) {
-    let mouseX = e.pageX - this.offsetLeft;
-    let mouseY = e.pageY - this.offsetTop;
+    // Draw action start or point (mouse down):
+    $('#canvas').mousedown(function (e) {
+        let mouseX = e.pageX - this.offsetLeft;
+        let mouseY = e.pageY - this.offsetTop;
 
-    paint = true;
-    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-    redraw();
-});
-// Mouse move
-$('#canvas').mousemove(function (e) {
-    if (paint) {
-        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+        paint = true;
+        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
         redraw();
-    }
-});
-// Mouse up (stop drawing)
-$('#canvas').mouseup(function (e) {
-    paint = false;
-});
+    });
+    // Mouse move
+    $('#canvas').mousemove(function (e) {
+        if (paint) {
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            redraw();
+        }
+    });
+    // Mouse up (stop drawing)
+    $('#canvas').mouseup(function (e) {
+        paint = false;
+    });
 
-// Leave event for drawing over the border:
-$('#canvas').mouseleave(function (e) {
-    paint = false;
-});
+    // Leave event for drawing over the border:
+    $('#canvas').mouseleave(function (e) {
+        paint = false;
+    });
+}

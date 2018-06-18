@@ -2,31 +2,39 @@
 <meta charset="utf-8">
 <html>
 
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <style>
-            body {
-                background-color: linen;
-            }
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="drawingapp.js"></script>
+    <style>
+        body {
+            background-color: linen;
+        }
 
-            h3 {
-                color: maroon;
-                margin-left: 40px;
-            }
-    #canvasDiv {
-                background-color: white;
-                border: 1px solid black;
-            }
-    #canvas {
-                background-color: white;
-                border: 1px solid black;
-            }
-        </style>
-    </head>
+        h3 {
+            color: maroon;
+            margin-left: 40px;
+        }
 
-    <body>
-        <h3>Canvas:</h3>
-        <canvas id="canvasDiv" width="490" height="420"></canvas>
-    </body>
+        #canvasDiv {
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        #canvas {
+            background-color: white;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Canvas:</h3>
+    <div id="canvasDiv"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            drawCanvas();
+        });
+    </script>
+</body>
 
 </html>
