@@ -34,13 +34,14 @@ let clickColor = new Array();
         clickX.push(x);
         clickY.push(y);
         clickDrag.push(dragging);
+        clickColor.push(curColor);
     }
 
     // Redraw action:
      redraw = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
-        context.strokeStyle = "#df4b26";
+        // context.strokeStyle = "#df4b26";
         context.lineJoin = "round";
         context.lineWidth = 3;
 
@@ -53,6 +54,7 @@ let clickColor = new Array();
             
             context.lineTo(clickX[i], clickY[i])
             context.closePath()
+            context.strokeStyle = clickColor[i];
             context.stroke()
         }
     }
@@ -83,4 +85,10 @@ let clickColor = new Array();
     $('#canvas').mouseleave(function (e) {
         paint = false
     });
+
+     $('#clear').mouseup(function () {
+         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+     }) //
+     //clear = () => {context.clearRect(0, 0, context.canvas.width, context.canvas.height)}
 }
+
