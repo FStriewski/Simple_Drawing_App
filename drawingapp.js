@@ -8,11 +8,11 @@
      colorBrown: "#986928"
  }
 
- let linewidth = {
-     one: 1,
-     two: 2,
-     three: 3,
-     four: 4
+ let sizes = {
+     small: 2,
+     normal: 5,
+     large: 7,
+     huge: 10,
  }
 
  let tools = {
@@ -20,17 +20,22 @@
      eraser: "eraser"
  }
 
-let curColor = colors.colorPurple
 let curTool = tools.pen
+let curSize = sizes.normal
+let curColor = colors.colorPurple
 
- switchColor = () => {
-     let select = document.getElementById("colorSelect").value
-     curColor = colors[select]
- }
- switchTool = () => {
-     let select = document.getElementById("toolSelect").value
-     curTool = tools[select]
- }
+switchTool = () => {
+    let select = document.getElementById("toolSelect").value
+    curTool = tools[select]
+}
+switchSize = () => {
+    let select = document.getElementById("sizeSelect").value
+    curSize = sizes[select]
+}
+switchColor = () => {
+    let select = document.getElementById("colorSelect").value
+    curColor = colors[select]
+}
 
  drawCanvas = () => {
 
@@ -41,6 +46,7 @@ let curTool = tools.pen
      let clickY = new Array(); // Array of Number
      let clickDrag = new Array(); // Array of Bool
      let clickColor = new Array();
+     let clickSize = new Array();
      let paint;
 
      // Add a point
@@ -49,6 +55,7 @@ let curTool = tools.pen
          clickY.push(y);
          clickDrag.push(dragging);
          clickColor.push(curColor);
+         clickSize.push(curSize);
      }
 
      clearCanvas = () => {
@@ -75,7 +82,8 @@ let curTool = tools.pen
                 context.lineTo(clickX[i], clickY[i])
              context.closePath()
              
-             context.strokeStyle = clickColor[i];
+             context.strokeStyle = clickColor[i]
+             context.lineWidth = clickSize[i]
              context.stroke()
          }
      }
@@ -123,5 +131,6 @@ let curTool = tools.pen
         clickY = []
         clickDrag = []
         clickColor = []
+        clickSize = []
      })
  }
