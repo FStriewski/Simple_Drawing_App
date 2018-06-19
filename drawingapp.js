@@ -8,11 +8,28 @@
      colorBrown: "#986928"
  }
 
- let curColor = colors.colorPurple
+ let linewidth = {
+     one: 1,
+     two: 2,
+     three: 3,
+     four: 4
+ }
+
+ let tools = {
+     pen: "pen",
+     eraser: "eraser"
+ }
+
+let curColor = colors.colorPurple
+let curTool = tools.pen
 
  switchColor = () => {
      let select = document.getElementById("colorSelect").value
      curColor = colors[select]
+ }
+ switchTool = () => {
+     let select = document.getElementById("toolSelect").value
+     curTool = tools[select]
  }
 
  drawCanvas = () => {
@@ -33,26 +50,33 @@
          clickColor.push(curColor);
      }
 
+     clearCanvas = () => {
+         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+
+     }
+
      // Redraw action:
      redraw = () => {
+         clearCanvas();
+
          context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
          context.beginPath();
 
-         context.strokeStyle = "#df4b26";
+        // context.strokeStyle = "#df4b26";
          context.lineJoin = "round";
          //  context.lineWidth = 3;
 
          for (let i = 0; i < clickX.length; i++) {
-
-
+             
+             
              (clickDrag[i] && i) // dot or line? Determined by drag t/f
              ?
              context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
-                 : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
-
+             : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
+             
              context.lineTo(clickX[i], clickY[i])
              context.closePath()
-
+             
              context.strokeStyle = clickColor[i];
              context.stroke()
          }

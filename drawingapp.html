@@ -37,16 +37,25 @@
         <div class="row justify-content-center">
 
             <div id="sidebar" class="col-3 justify-content-center">
+
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Color</label>
+                        <label class="input-group-text" for="toolSelect">Tool</label>
+                    </div>
+                    <select class="custom-select" id="toolSelect" onChange="switchTool()">
+                        <option value="pen" selected>Pen</option>
+                        <option value="eraser">Eraser</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="colorSelect">Color</label>
                     </div>
                     <select class="custom-select" id="colorSelect" onChange="switchColor()">
                         <option value="colorPurple" selected>Purple</option>
                         <option value="colorGreen">Green</option>
                         <option value="colorYellow">Yellow</option>
                         <option value="colorBrown">Brown</option>
-
                     </select>
                 </div>
             </div>
