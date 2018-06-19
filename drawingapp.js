@@ -60,6 +60,13 @@ sliderChange = () => {
          clickX.push(x);
          clickY.push(y);
          clickDrag.push(dragging);
+
+        //  if (curTool == tools.eraser) {
+        //      clickColor.push("white");
+        //  } else {
+        //      clickColor.push(curColor);
+        //  }
+
          clickColor.push(curColor);
          clickSize.push(curSize);
      }
