@@ -37,7 +37,7 @@
         <div class="row justify-content-center">
 
             <div id="sidebar" class="col-3 justify-content-center">
-
+<!-- Tool-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="toolSelect">Tool</label>
@@ -47,6 +47,19 @@
                         <option value="eraser">Eraser</option>
                     </select>
                 </div>
+<!-- Size-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="sizeSelect">Size</label>
+                    </div>
+                        <select class="custom-select" id="sizeSelect" onChange="switchSize()">
+                        <option value="small">Small</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="large">Large</option>
+                        <option value="huge">Huge</option>
+                    </select>
+                </div>
+<!-- Color-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="colorSelect">Color</label>

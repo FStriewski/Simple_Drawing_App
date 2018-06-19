@@ -53,7 +53,6 @@ let curTool = tools.pen
 
      clearCanvas = () => {
          context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-
      }
 
      // Redraw action:
@@ -100,8 +99,7 @@ let curTool = tools.pen
             let top = document.getElementById("navbar").offsetHeight
             let left = document.getElementById("sidebar").offsetWidth
 
-            addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);
-            
+            addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);            
             redraw();
          }
      });
@@ -119,14 +117,11 @@ let curTool = tools.pen
 
      // This also needs to reset any tools to their defaults
      $('#clear').mouseup(function () {
-        //context.clearRect(0, 0, context.canvas.width, context.canvas.height)
          // Force clearing "the cache"    
         clearCanvas()
         clickX = []
         clickY = []
         clickDrag = []
         clickColor = []
-        let curColor = colors.colorPurple
-        //context.beginPath();
      })
  }
