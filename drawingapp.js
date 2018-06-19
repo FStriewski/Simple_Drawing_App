@@ -30,13 +30,17 @@ switchTool = () => {
     let select = document.getElementById("toolSelect").value
     curTool = tools[select]
 }
-switchSize = () => {
-    let select = document.getElementById("sizeSelect").value
-    curSize = sizes[select]
-}
+// switchSize = () => {
+//     let select = document.getElementById("sizeSelect").value
+//     curSize = sizes[select]
+// }
 switchColor = () => {
     let select = document.getElementById("colorSelect").value
     curColor = colors[select]
+}
+sliderChange = () => {
+        let select = document.getElementById("sizeSlider").value
+        curSize = select
 }
 
  drawCanvas = () => {

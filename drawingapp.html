@@ -24,6 +24,8 @@
             background-color: white;
             border: 1px solid black;
         }
+
+        #sizeSlider {}
     </style>
 </head>
 
@@ -37,7 +39,7 @@
         <div class="row justify-content-center">
 
             <div id="sidebar" class="col-3 justify-content-center">
-<!-- Tool-->
+                <!-- Tool-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="toolSelect">Tool</label>
@@ -47,19 +49,7 @@
                         <option value="eraser">Eraser</option>
                     </select>
                 </div>
-<!-- Size-->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="sizeSelect">Size</label>
-                    </div>
-                        <select class="custom-select" id="sizeSelect" onChange="switchSize()">
-                        <option value="small">Small</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="large">Large</option>
-                        <option value="huge">Huge</option>
-                    </select>
-                </div>
-<!-- Color-->
+                <!-- Color-->
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="colorSelect">Color</label>
@@ -73,6 +63,25 @@
                         <option value="colorBlack">Black</option>
                     </select>
                 </div>
+                <!-- Size-->
+                <!-- <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="sizeSelect">Size</label>
+                    </div>
+                    <select class="custom-select" id="sizeSelect" onChange="switchSize()">
+                        <option value="small">Small</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="large">Large</option>
+                        <option value="huge">Huge</option>
+                    </select>
+                </div> -->
+                <div className="sliderContainer">
+                    <div>
+                        <label htmlFor="sizeSlider">Size</label>
+                    </div>
+                    <input id="sizeSlider" class="Slider" type="range" value="5" min="1" max="15" onChange="sliderChange()" />
+                </div>
+
             </div>
             <div class="col-9 justify-content-center">
                 <canvas id="canvas" width="750" height="400"></canvas>
