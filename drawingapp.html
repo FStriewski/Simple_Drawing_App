@@ -20,53 +20,48 @@
 
     <div id="wrapper" class="container-flex p-3 mb-2 bg-secondary text-white">
         <div class="row justify-content-center">
-
-            <div id="sidebar" class="col-3 justify-content-center">
-                <!-- Tool-->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="toolSelect">Tool</label>
+            <div id="sidebar" class="col-4 justify-content-center">
+                <div id="panel">
+                    <h4 class="text-center"> Settings </h4>
+                    <br/>
+                    <!-- Tool-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="toolSelect">Tool</label>
+                        </div>
+                        <select class="custom-select" id="toolSelect" onChange="switchTool()">
+                            <option value="pen" selected>Pen</option>
+                            <option value="eraser">Eraser</option>
+                        </select>
                     </div>
-                    <select class="custom-select" id="toolSelect" onChange="switchTool()">
-                        <option value="pen" selected>Pen</option>
-                        <option value="eraser">Eraser</option>
-                    </select>
-                </div>
-                <!-- Color-->
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="colorSelect">Color</label>
+                    <br/>
+                    <!-- Color-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="colorSelect">Color</label>
+                        </div>
+                        <select class="custom-select" id="colorSelect" onChange="switchColor()">
+                            <option value="colorRed">Red</option>
+                            <option value="colorGreen">Green</option>
+                            <option value="colorYellow">Yellow</option>
+                            <option value="colorPurple" selected>Purple</option>
+                            <option value="colorBrown">Brown</option>
+                            <option value="colorBlack">Black</option>
+                        </select>
                     </div>
-                    <select class="custom-select" id="colorSelect" onChange="switchColor()">
-                        <option value="colorRed">Red</option>
-                        <option value="colorGreen">Green</option>
-                        <option value="colorYellow">Yellow</option>
-                        <option value="colorPurple" selected>Purple</option>
-                        <option value="colorBrown">Brown</option>
-                        <option value="colorBlack">Black</option>
-                    </select>
-                </div>
-                <!-- Size-->
-                <!-- <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="sizeSelect">Size</label>
+                    <br/>
+                    <!-- Size-->
+                    <div className="sliderContainer">
+                        <div>
+                            <label htmlFor="sizeSlider">Size</label>
+                        </div>
+                        <input id="sizeSlider" class="Slider" type="range" value="5" min="1" max="15" onChange="sliderChange()" />
                     </div>
-                    <select class="custom-select" id="sizeSelect" onChange="switchSize()">
-                        <option value="small">Small</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="large">Large</option>
-                        <option value="huge">Huge</option>
-                    </select>
-                </div> -->
-                <div className="sliderContainer">
-                    <div>
-                        <label htmlFor="sizeSlider">Size</label>
-                    </div>
-                    <input id="sizeSlider" class="Slider" type="range" value="5" min="1" max="15" onChange="sliderChange()" />
                 </div>
 
             </div>
-            <div class="col-9 justify-content-center">
+
+            <div class="col-8 justify-content-center">
                 <canvas id="canvas" width="750" height="400"></canvas>
             </div>
 
