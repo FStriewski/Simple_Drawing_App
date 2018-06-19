@@ -2,10 +2,12 @@
 
 
  let colors = {
-     colorPurple: "#cb3594",
+     colorRed: "#dc3545",
      colorGreen: "#659b41",
      colorYellow: "#ffcf33",
-     colorBrown: "#986928"
+     colorPurple: "#cb3594",
+     colorBrown: "#986928",
+     colorBlack: "#ffffff",
  }
 
  let sizes = {
