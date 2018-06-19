@@ -1,5 +1,5 @@
  // Globals:
- let clickColor = new Array();
+
 
  let colors = {
      colorPurple: "#cb3594",
@@ -40,6 +40,7 @@ let curTool = tools.pen
      let clickX = new Array(); // Array of Number
      let clickY = new Array(); // Array of Number
      let clickDrag = new Array(); // Array of Bool
+     let clickColor = new Array();
      let paint;
 
      // Add a point
@@ -116,12 +117,16 @@ let curTool = tools.pen
          paint = false
      });
 
+     // This also needs to reset any tools to their defaults
      $('#clear').mouseup(function () {
-         context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+        //context.clearRect(0, 0, context.canvas.width, context.canvas.height)
          // Force clearing "the cache"    
-    //     clickX = []
-     //    clickY = []
-     //    clickDrag = []
-         context.beginPath();
+        clearCanvas()
+        clickX = []
+        clickY = []
+        clickDrag = []
+        clickColor = []
+        let curColor = colors.colorPurple
+        //context.beginPath();
      })
  }
