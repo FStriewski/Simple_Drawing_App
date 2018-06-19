@@ -25,6 +25,7 @@
 let curTool = tools.pen
 let curSize = sizes.normal
 let curColor = colors.colorPurple
+let curTool = tools.pen;
 
 switchTool = () => {
     let select = document.getElementById("toolSelect").value
@@ -51,6 +52,7 @@ sliderChange = () => {
      let clickDrag = new Array(); // Array of Bool
      let clickColor = new Array();
      let clickSize = new Array();
+     let clickTool = new Array();
      let paint;
 
      // Add a point
@@ -136,5 +138,6 @@ sliderChange = () => {
         clickDrag = []
         clickColor = []
         clickSize = []
+        clickTool = []
      })
  }
