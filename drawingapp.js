@@ -58,23 +58,21 @@ let curTool = tools.pen
      // Redraw action:
      redraw = () => {
          clearCanvas();
-
-         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-         context.beginPath();
-
-        // context.strokeStyle = "#df4b26";
-         context.lineJoin = "round";
-         //  context.lineWidth = 3;
-
+         
+         console.log(clickX)
+         
+        context.lineJoin = "round";
+        context.lineWidth = 3;
+         
          for (let i = 0; i < clickX.length; i++) {
              
-             
-             (clickDrag[i] && i) // dot or line? Determined by drag t/f
-             ?
-             context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
-             : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
-             
-             context.lineTo(clickX[i], clickY[i])
+             context.beginPath(); 
+                (clickDrag[i] && i) // dot or line? Determined by drag t/f
+                ?
+                context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
+                : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
+                
+                context.lineTo(clickX[i], clickY[i])
              context.closePath()
              
              context.strokeStyle = clickColor[i];
@@ -121,9 +119,9 @@ let curTool = tools.pen
      $('#clear').mouseup(function () {
          context.clearRect(0, 0, context.canvas.width, context.canvas.height)
          // Force clearing "the cache"    
-         clickX = []
-         clickY = []
-         clickDrag = []
+    //     clickX = []
+     //    clickY = []
+     //    clickDrag = []
          context.beginPath();
      })
  }
