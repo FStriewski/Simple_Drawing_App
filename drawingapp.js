@@ -25,7 +25,6 @@
 let curTool = tools.pen
 let curSize = sizes.normal
 let curColor = colors.colorPurple
-let curTool = tools.pen;
 
 switchTool = () => {
     let select = document.getElementById("toolSelect").value
