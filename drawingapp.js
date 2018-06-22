@@ -1,15 +1,5 @@
  // Globals:
 
-
- let colors = {
-     colorRed: "#dc3545",
-     colorGreen: "#659b41",
-     colorYellow: "#ffcf33",
-     colorPurple: "#cb3594",
-     colorBrown: "#986928",
-     colorBlack: "#ffffff",
- }
-
  let sizes = {
      small: 2,
      normal: 5,
@@ -24,17 +14,16 @@
 
 let curTool = tools.pen
 let curSize = sizes.normal
-let curColor = colors.colorPurple
+let curColor = "#e66465"
 
 switchTool = (select) => {
-    console.log(select)
-   // let select = document.getElementById("toolSelect").value
     curTool = tools[select]
 }
 
 switchColor = () => {
-    let select = document.getElementById("colorSelect").value
-    curColor = colors[select]
+    let select = document.getElementById("colorPicker").value
+    console.log(select)
+    curColor = select
 }
 
 sliderChange = () => {
@@ -71,9 +60,6 @@ sliderChange = () => {
              clickSize.push(curSize);
              document.getElementById("canvas").style.cursor = "cell";
          }
-
-       //  clickColor.push(curColor);
-        
      }
 
      clearCanvas = () => {
@@ -84,7 +70,6 @@ sliderChange = () => {
      redraw = () => {
          clearCanvas();
          
-         console.log(clickX)
          
         context.lineJoin = "round";
         context.lineWidth = 3;
@@ -104,6 +89,11 @@ sliderChange = () => {
              context.lineWidth = clickSize[i]
              context.stroke()
          }
+        //  if (curTool == "pen") {
+        //      context.globalAlpha = 0.4;
+        //      context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
+        //  }
+        //  context.globalAlpha = 1;
      }
 
      // Draw action start or point (mouse down):

@@ -37,21 +37,16 @@
                             <span class="fas fa-eraser"></span> Eraser</button>
                     </div>
                     <br/>
+
                     <!-- Color-->
-                    <div class="input-group bg-dark mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="colorSelect">Color</label>
-                        </div>
-                        <select class="custom-select" id="colorSelect" onChange="switchColor()">
-                            <option value="colorRed">Red</option>
-                            <option value="colorGreen">Green</option>
-                            <option value="colorYellow">Yellow</option>
-                            <option value="colorPurple" selected>Purple</option>
-                            <option value="colorBrown">Brown</option>
-                            <option value="colorBlack">Black</option>
-                        </select>
+                    <div>
+                        <label for="colorPicker">Color</label>
+                    </div>
+                    <div>
+                        <input type="color" id="colorPicker" name="color" value="#e66465" onChange="switchColor()" />
                     </div>
                     <br/>
+                    
                     <!-- Size-->
                     <div className="sliderContainer">
                         <div>
