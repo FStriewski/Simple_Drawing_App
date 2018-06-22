@@ -63,9 +63,12 @@ sliderChange = () => {
          if (curTool == tools.eraser) {
              clickColor.push("white");
              clickSize.push(curSize*2.5);
+             document.getElementById("canvas").style.cursor = "alias";
+
          } else {
              clickColor.push(curColor);
              clickSize.push(curSize);
+             document.getElementById("canvas").style.cursor = "cell";
          }
 
        //  clickColor.push(curColor);
