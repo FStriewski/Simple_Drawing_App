@@ -26,8 +26,9 @@ let curTool = tools.pen
 let curSize = sizes.normal
 let curColor = colors.colorPurple
 
-switchTool = () => {
-    let select = document.getElementById("toolSelect").value
+switchTool = (select) => {
+    console.log(select)
+   // let select = document.getElementById("toolSelect").value
     curTool = tools[select]
 }
 
@@ -63,7 +64,7 @@ sliderChange = () => {
          if (curTool == tools.eraser) {
              clickColor.push("white");
              clickSize.push(curSize*2.5);
-             document.getElementById("canvas").style.cursor = "alias";
+             document.getElementById("canvas").style.cursor = "all-scroll";
 
          } else {
              clickColor.push(curColor);
