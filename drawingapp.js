@@ -9,7 +9,8 @@
 
  let tools = {
      pen: "pen",
-     eraser: "eraser"
+     eraser: "eraser",
+     crayon: "crayon",
  }
 
 let curTool = tools.pen
@@ -55,6 +56,10 @@ sliderChange = () => {
              clickSize.push(curSize*2.5);
              document.getElementById("canvas").style.cursor = "all-scroll";
 
+        if (curTool == tools.crayon){
+
+        }     
+
          } else {
              clickColor.push(curColor);
              clickSize.push(curSize);
@@ -89,11 +94,11 @@ sliderChange = () => {
              context.lineWidth = clickSize[i]
              context.stroke()
          }
-        //  if (curTool == "pen") {
-        //      context.globalAlpha = 0.4;
-        //      context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
-        //  }
-        //  context.globalAlpha = 1;
+         if (curTool == "crayon") {
+             context.globalAlpha = 0.4;
+             context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
+         }
+         context.globalAlpha = 1;
      }
 
      // Draw action start or point (mouse down):
