@@ -41,6 +41,10 @@ sliderChange = () => {
     curSize = select
 }
 
+switchMode = (x) => {
+console.log(x)
+}
+
 // Main:
 
 drawCanvas = () => {
