@@ -1,4 +1,12 @@
 // Globals:
+let canvas;
+let context;
+
+
+window.onload = function () {
+ canvas = $('#canvas')
+ context = canvas.get(0).getContext("2d");
+}
 
 let mode = {
     add: "add",
@@ -26,6 +34,14 @@ let curSize = sizes.normal
 let curColor = "#e66465"
 let curMode = mode.add
 
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
 
 // Helper:
 
@@ -45,15 +61,47 @@ sliderChange = () => {
 
 switchMode = (select) => {
     curMode = mode[select]
-    console.log("Mode: " + curMode)
 }
+
+function getMousePosition(e) {
+
+    let top = document.getElementById("navbar").offsetHeight
+    let left = document.getElementById("sidebar").offsetWidth
+    let wrapper = 16
+
+    let x = e.pageX - left - wrapper
+    let y = e.pageY - top - wrapper
+
+    let output = new Point(x, y);
+    console.log(output)
+    return output
+}
+
+function handleDown(e) {
+    var pos = getMousePosition(e);
+    console.log(pos)
+    // switch (gState) {
+    //     case Mode.kAdding:
+    //         handleDownAdd(pos);
+    //         break;
+    //     case Mode.kSelecting:
+    //         handleDownSelect(pos);
+    //         break;
+    //     case Mode.kRemoving:
+    //         handleDownRemove(pos);
+    //         break;
+    }
+
+
+
+
 
 // Main:
 
 drawCanvas = () => {
 
-    const canvas = $('#canvas')
-    const context = canvas.get(0).getContext("2d");
+    // const canvas = $('#canvas')
+    // const context = canvas.get(0).getContext("2d");
 
     let clickX = new Array(); // Array of Number
     let clickY = new Array(); // Array of Number
@@ -134,6 +182,8 @@ drawCanvas = () => {
     // Draw action start or point (mouse down):
     $('#canvas').mousedown(function (e) {
         paint = true;
+        handleDown(e) 
+
 
         let wrapper = 16
         let top = document.getElementById("navbar").offsetHeight
