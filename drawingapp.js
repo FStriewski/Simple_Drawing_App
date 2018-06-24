@@ -11,6 +11,7 @@
      pen: "pen",
      eraser: "eraser",
      crayon: "crayon",
+     path: "path",
  }
 
 let curTool = tools.pen
@@ -23,7 +24,6 @@ switchTool = (select) => {
 
 switchColor = () => {
     let select = document.getElementById("colorPicker").value
-    console.log(select)
     curColor = select
 }
 
@@ -45,7 +45,7 @@ sliderChange = () => {
      let clickTool = new Array();
      let paint;
 
-     // Add a point
+     // Fills arrays with information
      addClick = (x, y, dragging) => {
          clickX.push(x);
          clickY.push(y);
@@ -56,7 +56,7 @@ sliderChange = () => {
              clickSize.push(curSize*2.5);
              document.getElementById("canvas").style.cursor = "all-scroll";
 
-        if (curTool == tools.crayon){
+        if (curTool == tools.path){
 
         }     
 
@@ -71,6 +71,12 @@ sliderChange = () => {
          context.clearRect(0, 0, context.canvas.width, context.canvas.height);
      }
 
+     setPath = () => {
+         context.beginPath()
+
+
+     }
+
      // Redraw action:
      redraw = () => {
          clearCanvas();
@@ -82,10 +88,23 @@ sliderChange = () => {
          for (let i = 0; i < clickX.length; i++) {
              
              context.beginPath(); 
-                (clickDrag[i] && i) // dot or line? Determined by drag t/f
-                ?
-                context.moveTo(clickX[i - 1], clickY[i - 1]) // Connect to previous node to draw a line?
-                : context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
+          if      (clickDrag[i] && i) // dot or line? Determined by drag t/f
+                {
+                    context.moveTo(clickX[i - 1], clickY[i - 1]) 
+                    console.log(
+                        "clickX[i -1]" + "--" + clickX[i-1]+ "//" +
+                        " clickY[i-1]" + "--" + clickY[i-1]
+                    )
+
+                } else {
+
+                    context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
+              console.log(
+                  "clickX[i] " + "--" + clickX[i] + "//" +
+                  " clickY[i]" + "--" + clickY[i]
+                  
+              )
+                }
                 
                 context.lineTo(clickX[i], clickY[i])
              context.closePath()
@@ -94,11 +113,6 @@ sliderChange = () => {
              context.lineWidth = clickSize[i]
              context.stroke()
          }
-         if (curTool == "crayon") {
-             context.globalAlpha = 0.4;
-             context.drawImage(crayonTextureImage, 0, 0, canvasWidth, canvasHeight);
-         }
-         context.globalAlpha = 1;
      }
 
      // Draw action start or point (mouse down):
