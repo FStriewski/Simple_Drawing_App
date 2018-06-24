@@ -1,6 +1,7 @@
 // Globals:
 let canvas;
 let context;
+let gBezierPath;
 
 
 window.onload = function () {
@@ -34,12 +35,36 @@ let curSize = sizes.normal
 let curColor = "#e66465"
 let curMode = mode.add
 
+
 class Point {
     constructor(x, y) {
         this.x = x;
         this.y = y;
     }
+}
 
+class Path {
+    constructor(startPoint){
+        this.startPoint = startPoint
+        
+        this.start = null;
+        this.end = null;
+    }
+
+    addPoint(pt) {
+      //  let newPt = new LineSegment(pt, end)
+        let newPt = new Point(pt, end)
+            (end == null) ?
+            (
+                end = newPt,
+                start = newPt
+            ) :
+            (
+                end.next = newPt,
+                end = end.next
+            )
+        return newPt;
+    }
 }
 
 
@@ -63,7 +88,7 @@ switchMode = (select) => {
     curMode = mode[select]
 }
 
-function getMousePosition(e) {
+ getMousePosition = e => {
 
     let top = document.getElementById("navbar").offsetHeight
     let left = document.getElementById("sidebar").offsetWidth
@@ -77,7 +102,7 @@ function getMousePosition(e) {
     return output
 }
 
-function handleDown(e) {
+ handleDown = e => {
     var pos = getMousePosition(e);
     console.log(pos)
     switch (curMode) {
@@ -97,7 +122,7 @@ function handleDown(e) {
 
 function handleDownAdd(pos) {
     if (!gBezierPath)
-        gBezierPath = new BezierPath(pos);
+        gBezierPath = new Path(pos);
     else {
         // If this was probably a selection, change to
         // select/drag mode
