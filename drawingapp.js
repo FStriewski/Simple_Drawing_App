@@ -58,7 +58,19 @@ class Segment {
     constructor(pt, prev) {
             this.pt = pt
             this.prev = prev
+            this.next 
     }
+
+    draw (context) {
+        this.pt.drawSquare(context);
+        // Draw control points if we have them
+
+        // If there are at least two points, draw curve.
+        if (this.prev)
+            drawCurve(context, this.prev.pt, this.pt);
+    }
+
+
 
 }
 
@@ -72,9 +84,9 @@ class Path {
         this.end = null;
     }
 
-    addPoint(pt) {
+    addPoint(startPoint) {
       //  let newPt = new LineSegment(pt, end)
-        let newPt = new Segment(pt, this.end)
+        let newPt = new Segment(startPoint, this.end)
             if (this.end == null) 
             {
                 this.end = newPt,
@@ -87,6 +99,8 @@ class Path {
         return newPt;
     }
 
+   
+
     draw  (ctx) {
             if (this.start == null)
                 return;
@@ -97,6 +111,10 @@ class Path {
                 current = current.next;
             }
         };
+
+            
+    //    this.addPoint(startPoint);
+            
 }
 
 
