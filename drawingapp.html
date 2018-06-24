@@ -30,15 +30,15 @@
                     <br/>
                     <!-- Mode-->
                     <div class="custom-control custom-radio custom-control-inline ">
-                        <input type="radio" id="modeAdd" name="customRadio" class="custom-control-input" checked="checked" >
+                        <input type="radio" id="modeAdd" name="customRadio" class="custom-control-input" checked="checked" onchange="switchMode('add')">
                         <label class="custom-control-label" for="modeAdd">Add</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="modeMove" name="customRadio" class="custom-control-input" >
+                        <input type="radio" id="modeMove" name="customRadio" class="custom-control-input" onchange="switchMode('move')">
                         <label class="custom-control-label" for="modeMove">Move</label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="modeDelete" name="customRadio" class="custom-control-input">
+                        <input type="radio" id="modeDelete" name="customRadio" class="custom-control-input" onchange="switchMode('delete')">
                         <label class="custom-control-label" for="modeDelete">Delete</label>
                     </div>
                     <br/>

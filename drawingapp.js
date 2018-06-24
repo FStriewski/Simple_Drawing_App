@@ -3,7 +3,8 @@
 let mode = {
     add: "add",
     select: "select",
-    drag: "drag",
+    move: "move",
+    delete: "delete",
 }
 
 let sizes = {
@@ -23,6 +24,7 @@ let tools = {
 let curTool = tools.pen
 let curSize = sizes.normal
 let curColor = "#e66465"
+let curMode = mode.add
 
 
 // Helper:
@@ -41,8 +43,9 @@ sliderChange = () => {
     curSize = select
 }
 
-switchMode = (x) => {
-console.log(x)
+switchMode = (select) => {
+    curMode = mode[select]
+    console.log("Mode: " + curMode)
 }
 
 // Main:
