@@ -28,13 +28,31 @@
                 <div id="panel">
                     <h4 class="text-center"> Settings </h4>
                     <br/>
+                    <!-- Mode-->
+                    <div class="custom-control custom-radio custom-control-inline ">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input"  checked="checked">
+                        <label class="custom-control-label" for="customRadio1">Add</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Move</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio2">Delete</label>
+                    </div>
+                    <br/>
+                    <br/>
                     <!-- Tool-->
                     <div>
                         <button class="btn btn-light" type="button" onClick="switchTool('pen')">
                             <span class="fas fa-pencil-alt"></span> Pen</button>
 
                         <button class="btn btn-light" type="button" onClick="switchTool('crayon')">
-                            <span class="fas fa-pencil-alt"></span> Crayon</button>
+                            <span class="fas fa-brush"></span> Crayon</button>
+
+                        <button class="btn btn-light" type="button" onClick="switchTool('path')">
+                            <span class="fas fa-magic"></span> Path</button>
 
                         <button class="btn btn-light" type="button" onClick="switchTool('eraser')">
                             <span class="fas fa-eraser"></span> Eraser</button>

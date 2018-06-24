@@ -1,22 +1,31 @@
- // Globals:
+// Globals:
 
- let sizes = {
-     small: 2,
-     normal: 5,
-     large: 7,
-     huge: 10,
- }
+let mode = {
+    add: "add",
+    select: "select",
+    drag: "drag",
+}
 
- let tools = {
-     pen: "pen",
-     eraser: "eraser",
-     crayon: "crayon",
-     path: "path",
- }
+let sizes = {
+    small: 2,
+    normal: 5,
+    large: 7,
+    huge: 10,
+}
+
+let tools = {
+    pen: "pen",
+    eraser: "eraser",
+    crayon: "crayon",
+    path: "path",
+}
 
 let curTool = tools.pen
 let curSize = sizes.normal
 let curColor = "#e66465"
+
+
+// Helper:
 
 switchTool = (select) => {
     curTool = tools[select]
@@ -28,131 +37,137 @@ switchColor = () => {
 }
 
 sliderChange = () => {
-        let select = document.getElementById("sizeSlider").value
-        curSize = select
+    let select = document.getElementById("sizeSlider").value
+    curSize = select
 }
 
- drawCanvas = () => {
+// Main:
 
-     let canvas = $('#canvas')
-     var context = canvas.get(0).getContext("2d");
+drawCanvas = () => {
 
-     let clickX = new Array(); // Array of Number
-     let clickY = new Array(); // Array of Number
-     let clickDrag = new Array(); // Array of Bool
-     let clickColor = new Array();
-     let clickSize = new Array();
-     let clickTool = new Array();
-     let paint;
+    const canvas = $('#canvas')
+    const context = canvas.get(0).getContext("2d");
 
-     // Fills arrays with information
-     addClick = (x, y, dragging) => {
-         clickX.push(x);
-         clickY.push(y);
-         clickDrag.push(dragging);
+    let clickX = new Array(); // Array of Number
+    let clickY = new Array(); // Array of Number
+    let clickDrag = new Array(); // Array of Bool
+    let clickColor = new Array();
+    let clickSize = new Array();
+    let clickTool = new Array();
+    let paint;
 
-         if (curTool == tools.eraser) {
-             clickColor.push("white");
-             clickSize.push(curSize*2.5);
-             document.getElementById("canvas").style.cursor = "all-scroll";
+    // Fills arrays with information
+    addClick = (x, y, dragging) => {
+        clickX.push(x);
+        clickY.push(y);
+        clickDrag.push(dragging);
 
-        if (curTool == tools.path){
+        if (curTool == tools.eraser) {
+            clickColor.push("white");
+            clickSize.push(curSize * 2.5);
+            document.getElementById("canvas").style.cursor = "all-scroll";
 
-        }     
+            if (curTool == tools.path) {
+            }
 
-         } else {
-             clickColor.push(curColor);
-             clickSize.push(curSize);
-             document.getElementById("canvas").style.cursor = "cell";
-         }
-     }
+        } else {
+            clickColor.push(curColor);
+            clickSize.push(curSize);
+            document.getElementById("canvas").style.cursor = "cell";
+        }
+    }
 
-     clearCanvas = () => {
-         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-     }
+    clearCanvas = () => {
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    }
 
-     setPath = () => {
-         context.beginPath()
+    setPath = () => {
+       // context.lineJoin = "round";
+       
+       for (let i = 0; i < clickX.length; i++) {
+           context.beginPath()
+           context.lineWidth = 3;
+           context.strokeStyle = 1
+           context.lineWidth = 2
+          //  context.moveTo(clickX[i - 1], clickY[i - 1])
+
+         // context.moveTo(clickX[i], clickY[i])
+          context.moveTo(clickX[i-1], clickY[i-1])
+          context.lineTo(clickX[i], clickY[i])
+          
+          context.stroke()
+        }
+        context.closePath()
 
 
-     }
+    }
 
-     // Redraw action:
-     redraw = () => {
-         clearCanvas();
-         
-         
+    // Redraw action:
+    redraw = () => {
+        clearCanvas();
+
         context.lineJoin = "round";
         context.lineWidth = 3;
-         
-         for (let i = 0; i < clickX.length; i++) {
-             
-             context.beginPath(); 
-          if      (clickDrag[i] && i) // dot or line? Determined by drag t/f
-                {
-                    context.moveTo(clickX[i - 1], clickY[i - 1]) 
-                    console.log(
-                        "clickX[i -1]" + "--" + clickX[i-1]+ "//" +
-                        " clickY[i-1]" + "--" + clickY[i-1]
-                    )
 
-                } else {
+        for (let i = 0; i < clickX.length; i++) {
+            context.beginPath();
 
-                    context.moveTo(clickX[i] - 1, clickY[i]) // Set starting point
-              console.log(
-                  "clickX[i] " + "--" + clickX[i] + "//" +
-                  " clickY[i]" + "--" + clickY[i]
-                  
-              )
-                }
-                
-                context.lineTo(clickX[i], clickY[i])
-             context.closePath()
-             
-             context.strokeStyle = clickColor[i]
-             context.lineWidth = clickSize[i]
-             context.stroke()
-         }
-     }
+            (clickDrag[i] && i) // dot or line? Determined by drag t/f
+            ?   context.moveTo(clickX[i - 1], clickY[i - 1])
+            :   context.moveTo(clickX[i]-1, clickY[i]) // Set starting point
+            context.lineTo(clickX[i], clickY[i])
+            context.closePath()
 
-     // Draw action start or point (mouse down):
-     $('#canvas').mousedown(function (e) {
-         paint = true;
+            context.strokeStyle = clickColor[i]
+            context.lineWidth = clickSize[i]
+            context.stroke()
+        }
+    }
 
-         let wrapper = 16
-         let top = document.getElementById("navbar").offsetHeight
-         let left = document.getElementById("sidebar").offsetWidth
+    // Draw action start or point (mouse down):
+    $('#canvas').mousedown(function (e) {
+        paint = true;
 
-         addClick(e.pageX - left - wrapper, e.pageY - top - wrapper);
-         redraw();
-     });
+        let wrapper = 16
+        let top = document.getElementById("navbar").offsetHeight
+        let left = document.getElementById("sidebar").offsetWidth
 
-     // Mouse move
-     $('#canvas').mousemove(function (e) {
-         if (paint) {
+        addClick(e.pageX - left - wrapper, e.pageY - top - wrapper);
+
+      (curTool == tools.path) 
+      ? setPath()
+      :  redraw();
+    });
+
+    // Mouse move
+    $('#canvas').mousemove(function (e) {
+        if (paint) {
             let wrapper = 16
             let top = document.getElementById("navbar").offsetHeight
             let left = document.getElementById("sidebar").offsetWidth
 
-            addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);            
-            redraw();
-         }
-     });
+            addClick(e.pageX - left - wrapper, e.pageY - top - wrapper, true);
 
-     // Mouse up (stop drawing)
-     $('#canvas').mouseup(function (e) {
-         paint = false
-         redraw();
-     });
+            (curTool == tools.path)
+                ? setPath()
+                : redraw();
+        }
+    });
 
-     // Leave event for drawing over the border:
-     $('#canvas').mouseleave(function (e) {
-         paint = false
-     });
+    // Mouse up (stop drawing) - Needs to stay clean
+    $('#canvas').mouseup(function (e) {
+        paint = false
+        redraw();
+    });
 
-     // This also needs to reset any tools to their defaults
-     $('#clear').mouseup(function () {
-         // Force clearing "the cache"    
+    // Leave event for drawing over the border:
+    $('#canvas').mouseleave(function (e) {
+        paint = false
+    });
+
+    // This also needs to reset any tools to their defaults
+    $('#clear').mouseup(function () {
+        // Force clearing "the cache"    
         clearCanvas()
         clickX = []
         clickY = []
@@ -160,5 +175,5 @@ sliderChange = () => {
         clickColor = []
         clickSize = []
         clickTool = []
-     })
- }
+    })
+}
