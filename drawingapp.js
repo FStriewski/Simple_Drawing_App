@@ -40,8 +40,29 @@ class Point {
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.radius = 3
+        this.select_radius = this.radius + 2;
     }
+
+    drawSquare (context) {
+        context.fillRect(
+              x - radius, 
+              y - radius, 
+              radius * 2, 
+              radius * 2
+            )
+      }
 }
+
+class Segment {
+    constructor(pt, prev) {
+            this.pt = pt
+            this.prev = prev
+    }
+
+}
+
+
 
 class Path {
     constructor(startPoint){
@@ -53,20 +74,29 @@ class Path {
 
     addPoint(pt) {
       //  let newPt = new LineSegment(pt, end)
-        let newPt = new Point(pt, this.end)
+        let newPt = new Segment(pt, this.end)
             if (this.end == null) 
             {
                 this.end = newPt,
                 this.start = newPt
-            }
-            else
-            {
+            } else {
                 this.end.next = newPt,
                 this.end = this.end.next
             }
             console.log(newPt)
         return newPt;
     }
+
+    draw  (ctx) {
+            if (this.start == null)
+                return;
+
+            var current = this.start;
+            while (current != null) {
+                current.draw(context);
+                current = current.next;
+            }
+        };
 }
 
 
