@@ -53,16 +53,18 @@ class Path {
 
     addPoint(pt) {
       //  let newPt = new LineSegment(pt, end)
-        let newPt = new Point(pt, end)
-            (end == null) ?
-            (
-                end = newPt,
-                start = newPt
-            ) :
-            (
-                end.next = newPt,
-                end = end.next
-            )
+        let newPt = new Point(pt, this.end)
+            if (this.end == null) 
+            {
+                this.end = newPt,
+                this.start = newPt
+            }
+            else
+            {
+                this.end.next = newPt,
+                this.end = this.end.next
+            }
+            console.log(newPt)
         return newPt;
     }
 }
@@ -126,11 +128,11 @@ function handleDownAdd(pos) {
     else {
         // If this was probably a selection, change to
         // select/drag mode
-        if (handleDownSelect(pos))
-            return;
+        //  if (handleDownSelect(pos))
+          //  return;
         gBezierPath.addPoint(pos);
     }
-    render();
+   // render();
 }
 
 
