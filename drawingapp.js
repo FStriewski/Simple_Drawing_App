@@ -73,25 +73,40 @@ function getMousePosition(e) {
     let y = e.pageY - top - wrapper
 
     let output = new Point(x, y);
-    console.log(output)
+   // console.log(output)
     return output
 }
 
 function handleDown(e) {
     var pos = getMousePosition(e);
     console.log(pos)
-    // switch (gState) {
-    //     case Mode.kAdding:
-    //         handleDownAdd(pos);
-    //         break;
+    switch (curMode) {
+         case "add":
+             handleDownAdd(pos);
+             break;
     //     case Mode.kSelecting:
     //         handleDownSelect(pos);
     //         break;
     //     case Mode.kRemoving:
     //         handleDownRemove(pos);
     //         break;
+    default:
+    console.log("nil")
     }
+}
 
+function handleDownAdd(pos) {
+    if (!gBezierPath)
+        gBezierPath = new BezierPath(pos);
+    else {
+        // If this was probably a selection, change to
+        // select/drag mode
+        if (handleDownSelect(pos))
+            return;
+        gBezierPath.addPoint(pos);
+    }
+    render();
+}
 
 
 
