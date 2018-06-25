@@ -16,13 +16,6 @@ let mode = {
     delete: "delete",
 }
 
-let sizes = {
-    small: 2,
-    normal: 5,
-    large: 7,
-    huge: 10,
-}
-
 let tools = {
     pen: "pen",
     eraser: "eraser",
@@ -31,7 +24,7 @@ let tools = {
 }
 
 let curTool = tools.pen
-let curSize = sizes.normal
+let curSize = 5
 let curColor = "#e66465"
 let curMode = mode.add
 
