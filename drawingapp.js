@@ -62,9 +62,6 @@ class Segment {
         if (this.prev)
             drawCurve(context, this.prev.pt, this.pt);
     }
-
-
-
 }
 
 
@@ -145,7 +142,7 @@ switchMode = (select) => {
     return output
 }
 
- handleDown = e => {
+ setPath = e => {
     var pos = getMousePosition(e);
     console.log(pos)
     switch (curMode) {
@@ -163,7 +160,7 @@ switchMode = (select) => {
     }
 }
 
-function handleDownAdd(pos) {
+ handleDownAdd = (pos) => {
     if (!gBezierPath)
         gBezierPath = new Path(pos);
     else {
@@ -219,7 +216,7 @@ drawCanvas = () => {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     }
 
-    setPath = () => {
+    INACTIVEsetPath = () => {
        // context.lineJoin = "round";
        
        for (let i = 0; i < clickX.length; i++) {
@@ -265,7 +262,7 @@ drawCanvas = () => {
     // Draw action start or point (mouse down):
     $('#canvas').mousedown(function (e) {
         paint = true;
-        handleDown(e) 
+        //handleDown(e) 
 
 
         let wrapper = 16
@@ -275,7 +272,7 @@ drawCanvas = () => {
         addClick(e.pageX - left - wrapper, e.pageY - top - wrapper);
 
       (curTool == tools.path) 
-      ? setPath()
+      ? setPath(e)
       :  redraw();
     });
 
