@@ -407,7 +407,7 @@ function LineSegment(pt, prev) {
         if (my.prev)
             drawCurve(ctx, my.prev.pt, my.pt, my.ctrlPt1, my.ctrlPt2);
     }
-
+/*
     this.toJSString = function () {
         if (!my.prev)
             return '  ctx.moveTo(' + Math.round(my.pt.x()) + ' + xoff, ' + Math.round(my.pt.y()) + ' + yoff);';
@@ -441,6 +441,7 @@ function LineSegment(pt, prev) {
                 y + ' + yoff);';
         }
     }
+    */
 
     this.findInLineSegment = function (pos) {
         if (my.pathPointIntersects(pos)) {

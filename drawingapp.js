@@ -25,7 +25,7 @@ let curSize = 5
 let curColor = "#e66465"
 let curMode = mode.add
 
-
+// Needed for Mouse Position
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -36,10 +36,10 @@ class Point {
 
     drawSquare (context) {
         context.fillRect(
-              x - radius, 
-              y - radius, 
-              radius * 2, 
-              radius * 2
+              this.x - this.radius, 
+              this.y - this.radius, 
+              this.radius * 2, 
+              this.radius * 2
             )
       }
 }
@@ -57,21 +57,37 @@ class Segment {
 
         // If there are at least two points, draw curve.
         if (this.prev)
-            drawCurve(context, this.prev.pt, this.pt);
+            this.drawCurve(context, this.prev.pt, this.pt);
     }
+
+         drawCurve (context, startPt, endPt) {
+            context.save();
+            context.fillStyle = 'black';
+            context.strokeStyle = 'black';
+            context.beginPath();
+            context.moveTo(startPt.x(), startPt.y());
+            context.lineTo(startPt.x(), startPt.y());
+            context.bezierCurveTo(ctrlPt1.x(), ctrlPt1.y(), ctrlPt2.x(), ctrlPt2.y(), endPt.x(), endPt.y());
+            context.stroke();
+            context.restore();
+        }
+
+    
+
+
 }
 
 class Path {
     constructor(startPoint){
-        this.startPoint = startPoint
+        this.startPoint = this.addPoint(startPoint)
         
         this.start = null;
         this.end = null;
     }
 
-    addPoint(startPoint) {
+    addPoint(pt) {
       //  let newPt = new LineSegment(pt, end)
-        let newPt = new Segment(startPoint, this.end)
+        let newPt = new Segment(pt, this.end)
             if (this.end == null) 
             {
                 this.end = newPt,
@@ -84,7 +100,7 @@ class Path {
         return newPt;
     }
 
-    draw  (ctx) {
+    draw (context) {
             if (this.start == null)
                 return;
 
@@ -133,7 +149,6 @@ switchMode = (select) => {
 
  setPath = e => {
     var pos = getMousePosition(e);
-    console.log(pos)
     switch (curMode) {
          case "add":
              handleAdd(pos);
@@ -150,8 +165,12 @@ switchMode = (select) => {
 }
 
 handleAdd = (pos) => {
-    if (!gBezierPath)
-        gBezierPath = new Path(pos);
+    if (!gBezierPath) {
+      //  gBezierPath = new Path(pos);
+      const output = new Segment(pos)
+      console.log(output)
+        output.draw(context)
+    }
     else {
         // If this was probably a selection, change to
         // select/drag mode
@@ -160,6 +179,19 @@ handleAdd = (pos) => {
         gBezierPath.addPoint(pos);
     }
    // render();
+}
+
+ render =() => {
+    gBackCtx.clearRect(0, 0, WIDTH, HEIGHT);
+    context.clearRect(0, 0, WIDTH, HEIGHT);
+   // if (gBackgroundImg)
+     //   gBackCtx.drawImage(gBackgroundImg, 0, 0);
+    if (gBezierPath) {
+        gBezierPath.draw(gBackCtx);
+    //    var codeBox = document.getElementById('putJS');
+    //    codeBox.innerHTML = gBezierPath.toJSString();
+    }
+    context.drawImage(gBackCanvas, 0, 0);
 }
 
 
