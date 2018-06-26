@@ -1,13 +1,10 @@
-// Globals:
-let canvas;
-let context;
+
+context = document.getElementById("canvas").getContext('2d');
+
+// ---Globals:
+
+let clear = document.getElementById("clear");
 let gBezierPath;
-
-
-window.onload = function () {
- canvas = $('#canvas')
- context = canvas.get(0).getContext("2d");
-}
 
 let mode = {
     add: "add",
@@ -64,8 +61,6 @@ class Segment {
     }
 }
 
-
-
 class Path {
     constructor(startPoint){
         this.startPoint = startPoint
@@ -89,8 +84,6 @@ class Path {
         return newPt;
     }
 
-   
-
     draw  (ctx) {
             if (this.start == null)
                 return;
@@ -100,15 +93,11 @@ class Path {
                 current.draw(context);
                 current = current.next;
             }
-        };
-
-            
-    //    this.addPoint(startPoint);
-            
+        };          
 }
 
 
-// Helper:
+// ---Helper:
 
 switchTool = (select) => {
     curTool = tools[select]
@@ -147,7 +136,7 @@ switchMode = (select) => {
     console.log(pos)
     switch (curMode) {
          case "add":
-             handleDownAdd(pos);
+             handleAdd(pos);
              break;
     //     case Mode.kSelecting:
     //         handleDownSelect(pos);
@@ -160,7 +149,7 @@ switchMode = (select) => {
     }
 }
 
- handleDownAdd = (pos) => {
+handleAdd = (pos) => {
     if (!gBezierPath)
         gBezierPath = new Path(pos);
     else {
@@ -176,12 +165,9 @@ switchMode = (select) => {
 
 
 
-// Main:
+// ----Main:
 
 drawCanvas = () => {
-
-    // const canvas = $('#canvas')
-    // const context = canvas.get(0).getContext("2d");
 
     let clickX = new Array(); // Array of Number
     let clickY = new Array(); // Array of Number
@@ -219,22 +205,20 @@ drawCanvas = () => {
     INACTIVEsetPath = () => {
        // context.lineJoin = "round";
        
-       for (let i = 0; i < clickX.length; i++) {
-           context.beginPath()
-           context.lineWidth = 3;
-           context.strokeStyle = 1
-           context.lineWidth = 2
+        for (let i = 0; i < clickX.length; i++) {
+            context.beginPath()
+            context.lineWidth = 3;
+            context.strokeStyle = 1
+            context.lineWidth = 2
           //  context.moveTo(clickX[i - 1], clickY[i - 1])
 
          // context.moveTo(clickX[i], clickY[i])
-          context.moveTo(clickX[i-1], clickY[i-1])
-          context.lineTo(clickX[i], clickY[i])
+            context.moveTo(clickX[i-1], clickY[i-1])
+            context.lineTo(clickX[i], clickY[i])
           
-          context.stroke()
+            context.stroke()
         }
         context.closePath()
-
-
     }
 
     // Redraw action:
@@ -260,10 +244,9 @@ drawCanvas = () => {
     }
 
     // Draw action start or point (mouse down):
-    $('#canvas').mousedown(function (e) {
+    canvas.addEventListener('mousedown', function (e) {
         paint = true;
         //handleDown(e) 
-
 
         let wrapper = 16
         let top = document.getElementById("navbar").offsetHeight
@@ -277,7 +260,8 @@ drawCanvas = () => {
     });
 
     // Mouse move
-    $('#canvas').mousemove(function (e) {
+    canvas.addEventListener('mousemove', function (e) {
+
         if (paint) {
             let wrapper = 16
             let top = document.getElementById("navbar").offsetHeight
@@ -292,18 +276,18 @@ drawCanvas = () => {
     });
 
     // Mouse up (stop drawing) - Needs to stay clean
-    $('#canvas').mouseup(function (e) {
+    canvas.addEventListener('mouseup', function (e) {
         paint = false
         redraw();
     });
 
     // Leave event for drawing over the border:
-    $('#canvas').mouseleave(function (e) {
+    canvas.addEventListener('mouseleave', function (e) {
         paint = false
     });
 
     // This also needs to reset any tools to their defaults
-    $('#clear').mouseup(function () {
+    clear.addEventListener('mouseup', function () {
         // Force clearing "the cache"    
         clearCanvas()
         clickX = []
@@ -314,3 +298,8 @@ drawCanvas = () => {
         clickTool = []
     })
 }
+
+drawCanvas()
+
+// ----------------------------------------------------------------
+
